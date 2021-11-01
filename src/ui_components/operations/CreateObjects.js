@@ -12,7 +12,7 @@ const CreateObjects = (props) => {
         let objDetail = {};
         debugger;
         objDetail.modelName = objName;
-        httpsPOST(null,API_CREATE_OBJECTS,objDetail).then((response)=>{
+        httpsPOST(localStorage.getItem('access_token'),API_CREATE_OBJECTS,objDetail).then((response)=>{
             console.log("RESPONSE",response)
             alert(`${objName} created`)
             setObjName("");

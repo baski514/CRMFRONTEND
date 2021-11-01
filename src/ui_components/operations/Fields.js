@@ -16,7 +16,7 @@ const Fields = (props) => {
         let objName = match.params.objName.substring(0,match.params.objName.length-1);
         let endPoint = `${API_GET_Fields}${objName}`
         
-        httpsGET(null,`${endPoint}`).then((response)=>{
+        httpsGET(localStorage.getItem('access_token'),`${endPoint}`).then((response)=>{
             setFields(response.msg)
             console.log("RESPONSE",response);
         }).catch((error)=>{

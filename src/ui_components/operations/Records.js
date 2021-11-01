@@ -24,7 +24,7 @@ const Records=(props,selectedTab)=>{
     const loadRecords=()=>{
         let endPoint = `${API_GET_RECORD}${objName}`
         
-        httpsGET(null,`${endPoint}`).then((response)=>{
+        httpsGET(localStorage.getItem('access_token'),`${endPoint}`).then((response)=>{
             
             if(response.msg && response.msg.length > 0 && response.msg instanceof Array){
                 debugger;
@@ -39,7 +39,7 @@ const Records=(props,selectedTab)=>{
     const loadFields=()=>{
         let endPoint = `${API_GET_Fields}${objName}`
         
-        httpsGET(null,`${endPoint}`).then((response)=>{
+        httpsGET(localStorage.getItem('access_token'),`${endPoint}`).then((response)=>{
             try {
                 let fieldsTemp = []
                 setCoreField(response.msg);
@@ -68,10 +68,10 @@ const Records=(props,selectedTab)=>{
             body[f.path] = f.value
         })
 
-        httpsPOST(null,`${endPoint}`,body).then((response)=>{
+        httpsPOST(localStorage.getItem('access_token'),`${endPoint}`,body).then((response)=>{
             console.log("RESPONSE--",response)
             let fieldCopy = [...records]
-            fieldCopy.push({Name:body.Name})
+            fieldCopy.push({Name:body.Name,_id:response.msg._id})
             setRecords(fieldCopy);
             setShowCreateRecord(false)
             // try {

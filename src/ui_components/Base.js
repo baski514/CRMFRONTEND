@@ -13,11 +13,16 @@ const Base = (props) => {
 
     useEffect(() => {
         // connectDB();
-        loadObjects();
+        if(localStorage.getItem('access_token')){
+            loadObjects ();
+        }
     },[])
 
     const loadObjects=()=>{
-        httpsGET(null,API_GET_OBJECTS).then((response)=>{
+        httpsGET(localStorage.getItem('access_token'),API_GET_OBJECTS).then((response)=>{
+            if(response==null){
+                alert("Authorization Error")
+            }
             console.log("API RESP",response);
             setObjects(response.msg)
         }).catch((error)=>{
@@ -42,13 +47,15 @@ const Base = (props) => {
                 </div>
                
                 <div className="m-3 rounded-md bg-white">
-                    <div className="w-full bg-blue-100 border-b-2 border-gray-600 h-9 rounded-t-md flex flex-row items-center">
+                    {localStorage.getItem('access_token') &&
+                          <div className="w-full bg-blue-100 border-b-2 border-gray-600 h-9 rounded-t-md flex flex-row items-center">
                         {objects && objects.length>0 && objects.map((obj)=>{
                             return(
                                 <a className="cursor-pointer px-2 hover:text-blue-400 mx-1 rounded-t-md" href={`/record/${obj}`}>{obj}</a>
                             )
                         })}
                     </div>
+                    }
                     <Routes/>
                 </div>
             </div>

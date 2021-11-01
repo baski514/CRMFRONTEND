@@ -1,15 +1,15 @@
 export const API = process.env.REACT_APP_BACKEND;
+console.log("API",API)
 
-console.log(API)
 const BASE_URL = `${API}`
-const type = 'xyz'
+
 export const httpsGET = (tokens, resourceURL) => {
+    console.log("Tokens",tokens)
     return fetch(`${BASE_URL}${resourceURL}`, {
         method: "GET",
         headers: {
-            Authorization: `Bearer ${tokens ? tokens.idToken : ""}`,
-            uid: `${tokens ? tokens.uid : ""}`,
-            type:`${type}`
+            Authorization: `${tokens ? "Bearer "+tokens : null}`,
+            uid: `${tokens ? tokens.uid : ""}`
         },
     })
         .then((response) => {
@@ -18,23 +18,23 @@ export const httpsGET = (tokens, resourceURL) => {
         .catch((err) => console.log(err));
 };
 
-export const httpsPOST = (tokens, resourceURL, body) => { 
-    return fetch(`${BASE_URL}${resourceURL}`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${tokens ? tokens.idToken : ""}`,
-            uid: `${tokens ? tokens.uid : ""}`,
-            type:`${type}`
-        },
-        body: JSON.stringify(body),
+export const httpsPOST = (tokens, resourceURL, body) => {
+  return fetch (`${BASE_URL}${resourceURL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `${tokens ? "Bearer "+tokens : ''}`,
+      uid: `${tokens ? tokens.uid : ''}`,
+    },
+    body: JSON.stringify (body),
+  })
+    .then (response => {
+      return response.json ();
     })
-        .then((response) => {
-            return response.json();
-        })
-        .catch((err) => console.log(err));
+    .catch (err => console.log (err));
 };
+
 
 export const httpsPATCH = (tokens, resourceURL, body) => { 
     return fetch(`${BASE_URL}${resourceURL}`, {
@@ -42,9 +42,8 @@ export const httpsPATCH = (tokens, resourceURL, body) => {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${tokens ? tokens.idToken : ""}`,
+            Authorization: `${tokens ? "Bearer "+tokens : ''}`,
             uid: `${tokens ? tokens.uid : ""}`,
-            type:`${type}`
         },
         body: JSON.stringify(body),
     })
@@ -60,9 +59,8 @@ export const httpsDELETE = (tokens, resourceURL) => {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${tokens ? tokens.idToken : ""}`,
+            Authorization: `${tokens ? "Bearer "+tokens : ''}`,
             uid: `${tokens ? tokens.uid : ""}`,
-            type:`${type}`
         },
     })
         .then((response) => {

@@ -8,6 +8,11 @@ import CreateObjects from "./ui_components/operations/CreateObjects"
 import CreateFields from "./ui_components/operations/CreateFields";
 import Records from "./ui_components/operations/Records"
 import RecordDetails from "./ui_components/operations/RecordDetails";
+import PrivateRoute from "./PrivateRoutes";
+import Signin from "./ui_components/auth/Signin";
+import Signup from "./ui_components/auth/Signup";
+
+
 class Routes extends Component {
     constructor(props) {
         super(props);
@@ -18,15 +23,18 @@ class Routes extends Component {
             <BrowserRouter>
                 <div className="App h-screen">
                     <Switch>
-                        <Route exact path="/" component={()=><Home selectedTab={this.props.selectedTab} />}>
+                        <Route path='/signin' component={Signin} />
+                        <Route path="/signup" component={Signup} />
+
+                        <PrivateRoute exact path="/" component={()=><Home selectedTab={this.props.selectedTab} />}>
                                 {/* <Home/> */}
-                            </Route>
-                        <Route path="/record/:obj_name" component={Records} />
-                        <Route path="/details/:obj_name/:recordId" component={RecordDetails} />
-                        <Route path="/setup/layout/LayoutFieldList/:objName" component={Fields} />
-                        <Route path="/setup/customObjectPage" component={Objects} />
-                        <Route path="/createObject" component={CreateObjects} />
-                        <Route path="/createField/:objName" component={CreateFields} />
+                            </PrivateRoute>
+                        <PrivateRoute path="/record/:obj_name" component={Records} />
+                        <PrivateRoute path="/details/:obj_name/:recordId" component={RecordDetails} />
+                        <PrivateRoute path="/setup/layout/LayoutFieldList/:objName" component={Fields} />
+                        <PrivateRoute path="/setup/customObjectPage" component={Objects} />
+                        <PrivateRoute path="/createObject" component={CreateObjects} />
+                        <PrivateRoute path="/createField/:objName" component={CreateFields} />
                     </Switch>
                 </div>
             </BrowserRouter>

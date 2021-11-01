@@ -14,7 +14,7 @@ const CreateFields = (props)=>{
             fieldType:dataType
         };
         
-        httpsPOST(null,`${API_CREATE_FIELD}${match.params.objName}`,objDetail).then((response)=>{
+        httpsPOST(localStorage.getItem('access_token'),`${API_CREATE_FIELD}${match.params.objName}`,objDetail).then((response)=>{
             console.log("RESPONSE",response)
             alert(`${fieldName} created`)
             setFieldName("");
