@@ -19,7 +19,7 @@ const RecordDetails=(props,selectedTab)=>{
         let endPoint = `${API_GET_RECORD_Details}${objName}/${recordId}`;
         debugger;
         
-        httpsGET(null,`${endPoint}`).then((response)=>{
+        httpsGET(localStorage.getItem('access_token'),`${endPoint}`).then((response)=>{
             if(response.msg){
                 debugger;
                 let listBody = [];
@@ -49,7 +49,7 @@ const RecordDetails=(props,selectedTab)=>{
         })
 
         console.log("Body:-  ",body)
-        httpsPATCH(null,`${endPoint}`,body).then((response)=>{
+        httpsPATCH(localStorage.getItem('access_token'),`${endPoint}`,body).then((response)=>{
             console.log("RESPONSE--",response)
 
             alert("Record Updated")

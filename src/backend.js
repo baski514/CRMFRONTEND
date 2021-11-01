@@ -1,3 +1,6 @@
+export const API_POST_SIGNUP = 'signup/';
+export const API_POST_LOGIN = 'login/';
+
 export const API_CREATE_OBJECTS = "object/";
 export const API_GET_OBJECTS = "object/";
 export const API_GET_Fields = "field/";

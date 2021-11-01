@@ -13,7 +13,7 @@ const Objects = (props) => {
     },[])
 
     const loadObjects=()=>{
-        httpsGET(null,API_GET_OBJECTS).then((response)=>{
+        httpsGET(localStorage.getItem('access_token'),API_GET_OBJECTS).then((response)=>{
             console.log("API RESP",response);
             setObjects(response.msg)
         }).catch((error)=>{
